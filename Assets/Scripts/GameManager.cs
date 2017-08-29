@@ -33,6 +33,20 @@ namespace Yami {
         }
 
         /// <summary>
+        /// Gets real position on the world. Use to deal with wrapped world.
+        /// </summary>
+        public Vector2 GetWorldPosition(Vector2 position) {
+            return world.GetWorldPosition(position);
+        }
+
+        /// <summary>
+        /// Gets relative velocity based on player's velocity.
+        /// </summary>
+        public Vector2 GetRelativeVelocity(Vector2 velocity) {
+            return world.GetRelativeVelocity(velocity);
+        }
+
+        /// <summary>
         /// Calculate camera offset when player moving.
         /// </summary>
         public void CalculateCameraOffset(Vector2 direction) {
@@ -43,7 +57,7 @@ namespace Yami {
             UpdateCamera();
         }
 
-        void UpdateCamera() {
+        private void UpdateCamera() {
             Vector3 currentPos = mainCamera.position;
             Vector2 cameraOffset = world.GetCameraOffset();
             currentPos.x = cameraOffset.x;

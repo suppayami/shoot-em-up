@@ -25,6 +25,27 @@ namespace Yami {
             return size;
         }
 
+        public Vector2 GetWorldPosition(Vector2 position) {
+            Vector2 realPos = Vector2.zero;
+
+            realPos.x = position.x;
+            realPos.y = position.y;
+
+            if (position.x < -size.x / 2) {
+                realPos.x = size.x + position.x;
+            }
+
+            if (position.x > size.x / 2) {
+                realPos.x = -size.x + position.x;
+            }
+
+            return realPos;
+        }
+
+        public Vector2 GetRelativeVelocity(Vector2 velocity) {
+            return velocity - playerVelocity;
+        }
+
         public Vector2 GetCameraOffset() {
             return cameraOffset;
         }
