@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114863047607488290}
   - component: {fileID: 114509399278012274}
   m_Layer: 9
-  m_Name: New Prefab
+  m_Name: EnemyShoot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f182ddd065135449a765d49bdc48ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 10
+  score: 25
 --- !u!114 &114274948633237022
 MonoBehaviour:
   m_ObjectHideFlags: 1

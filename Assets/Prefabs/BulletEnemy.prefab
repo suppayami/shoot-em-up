@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4714367b7ee365e4ea2e8d5eeb14b9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 600, y: 0}
+  speed: {x: 450, y: 0}
   maxDistance: 600
 --- !u!212 &212476653006338402
 SpriteRenderer:

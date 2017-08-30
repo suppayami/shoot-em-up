@@ -18,6 +18,10 @@ namespace Yami {
             objRenderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
         }
 
+        void OnDisable() {
+            objRenderer.sharedMaterial.SetTextureOffset("_MainTex", Vector2.zero);
+        }
+
         private Vector2 GetPlayerVelocity() {
             GameManager manager = GameManager.GetGameManager();
             return manager.GetPlayerVelocity();
