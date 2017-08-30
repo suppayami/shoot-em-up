@@ -21,6 +21,7 @@ namespace Yami {
 
         public void Move(Vector2 direction) {
             Accelerate(direction);
+            Facing(direction);
             CalculateWorldPosition(direction);
         }
 
@@ -33,6 +34,20 @@ namespace Yami {
 
             absoluteVelocity = velocity;
             objRigidbody.velocity = GetRelativeVelocity(absoluteVelocity);
+        }
+
+        private void Facing(Vector2 direction) {
+            Vector3 scale = objTransform.localScale;
+
+            if (absoluteVelocity.x > 0) {
+                scale.x = Mathf.Abs(scale.x);
+            }
+
+            if (absoluteVelocity.x < 0) {
+                scale.x = -Mathf.Abs(scale.x);
+            }
+
+            objTransform.localScale = scale;
         }
 
         private void CalculateWorldPosition(Vector2 direction) {

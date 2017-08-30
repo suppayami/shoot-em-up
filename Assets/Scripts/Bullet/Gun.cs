@@ -23,7 +23,7 @@ namespace Yami {
             padding.x *= Mathf.Sign(objTransform.localScale.x);
 
             Vector2 position = currentPos + padding;
-            GameObject spawn = Instantiate(bullet, objTransform.position, Quaternion.identity);
+            GameObject spawn = Instantiate(bullet, position, Quaternion.identity);
             Transform spawnTransform = spawn.transform;
 
             Vector3 scale = spawnTransform.localScale;

@@ -42,6 +42,9 @@ namespace Yami {
         }
 
         void Update() {
+            if (!isActivated) {
+                return;
+            }
             enemy.UpdateAI();
         }
 
