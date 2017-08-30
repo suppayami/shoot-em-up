@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 114373957544097230}
   - component: {fileID: 50058325088743862}
   - component: {fileID: 61588842210402994}
-  m_Layer: 0
+  - component: {fileID: 114089746856607298}
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +41,7 @@ GameObject:
   - component: {fileID: 4612415511873414}
   - component: {fileID: 212386090046369796}
   - component: {fileID: 114162482409951694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +120,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32, y: 32}
   m_EdgeRadius: 0
+--- !u!114 &114089746856607298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1746182352008386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc39c95252c503d48b23a53e99cb80a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootCooldown: 0.2
+  bullet: {fileID: 1522134373641406, guid: ff1e90f0bd4695249a33d2053361570b, type: 2}
 --- !u!114 &114162482409951694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,11 +152,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746182352008386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82cf35c88adea440d8cea4bb41f08f4c, type: 3}
+  m_Script: {fileID: 11500000, guid: f3aa0bf3490140149b482668e69e7f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: {x: 1600, y: 2000}
-  maxSpeed: {x: 400, y: 400}
+  maxSpeed: {x: 300, y: 400}
 --- !u!114 &114568892168386562
 MonoBehaviour:
   m_ObjectHideFlags: 1

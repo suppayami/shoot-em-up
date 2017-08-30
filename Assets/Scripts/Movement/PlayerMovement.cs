@@ -5,7 +5,7 @@ namespace Yami {
     /// Player's movement handler. The movement is pseudo, the camera and
     /// player stay still while the others move relatively to player.
     /// </summary>
-    public class PlayerMovement : MonoBehaviour, Movable {
+    public class PlayerMovement : MonoBehaviour, IMovable {
         [SerializeField]
         private Vector2 acceleration = new Vector2(200.0f, 400.0f);
         [SerializeField]

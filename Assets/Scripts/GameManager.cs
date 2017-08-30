@@ -7,10 +7,19 @@ namespace Yami {
         [SerializeField]
         private World world;
         [SerializeField]
+        private EnemyFactory enemyFactory;
+        [SerializeField]
         private Transform mainCamera;
 
         /// <summary>
-        /// Sets Player's Velocity to be accessed by the other objects.
+        /// Get Player Object. There's only one player on the Scene so meh~
+        /// </summary>
+        public GameObject GetPlayerObject() {
+            return world.GetPlayerObject();
+        }
+
+        /// <summary>
+        /// Set Player's Velocity to be accessed by the other objects.
         /// Should be raw value (to be multiplied with Time.deltaTime)
         /// </summary>
         public void SetPlayerVelocity(Vector2 velocity) {
@@ -18,7 +27,7 @@ namespace Yami {
         }
 
         /// <summary>
-        /// Gets Player's Velocity, should be multiplied with Time.deltaTime
+        /// Get Player's Velocity, should be multiplied with Time.deltaTime
         /// for velocity per second.
         /// </summary>
         public Vector2 GetPlayerVelocity() {
@@ -26,21 +35,21 @@ namespace Yami {
         }
 
         /// <summary>
-        /// Gets World Size, for relative positions calculating
+        /// Get World Size, for relative positions calculating
         /// </summary>
         public Vector2 GetWorldSize() {
             return world.GetWorldSize();
         }
 
         /// <summary>
-        /// Gets real position on the world. Use to deal with wrapped world.
+        /// Get real position on the world. Use to deal with wrapped world.
         /// </summary>
         public Vector2 GetWorldPosition(Vector2 position) {
             return world.GetWorldPosition(position);
         }
 
         /// <summary>
-        /// Gets relative velocity based on player's velocity.
+        /// Get relative velocity based on player's velocity.
         /// </summary>
         public Vector2 GetRelativeVelocity(Vector2 velocity) {
             return world.GetRelativeVelocity(velocity);
@@ -53,8 +62,23 @@ namespace Yami {
             world.CalculateCameraOffset(direction);
         }
 
+        /// <summary>
+        /// Get random position on the game world to spawn a new object.
+        /// </summary>
+        public Vector2 GetRandomSpawnPosition() {
+            return world.GetRandomSpawnPosition();
+        }
+
+        void Awake() {
+            // Find Player Object for further uses
+            GameObject playerObject = GameObject.Find("Player");
+            world.SetPlayerObject(playerObject);
+            enemyFactory.SetupSpawn();
+        }
+
         void Update() {
             UpdateCamera();
+            enemyFactory.UpdateSpawn();
         }
 
         private void UpdateCamera() {
