@@ -7,6 +7,10 @@ namespace Yami {
         private GameObject[] enemyPrefabs;
         [SerializeField]
         private float baseSpawnTime = 3.0f;
+        [SerializeField]
+        private float lowestSpawnTime = 1.0f;
+        [SerializeField]
+        private float decreaseSpawnTime = 0.05f; // decrease every second
 
         private float currentSpawnTime;
         private float spawnTimeCount;
@@ -22,6 +26,8 @@ namespace Yami {
                 spawnTimeCount += currentSpawnTime;
                 RandomSpawn();
             }
+            currentSpawnTime -= decreaseSpawnTime * Time.deltaTime;
+            currentSpawnTime = Mathf.Max(currentSpawnTime, lowestSpawnTime);
         }
 
         private void RandomSpawn() {

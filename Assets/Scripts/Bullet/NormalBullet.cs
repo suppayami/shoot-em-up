@@ -9,7 +9,6 @@ namespace Yami {
 
         private Transform objTransform;
         private Rigidbody2D objRigidbody;
-        private Vector2 absoluteVelocity = Vector2.zero;
         private Vector2 lastPosition = Vector2.zero;
         private float distance = 0.0f;
 

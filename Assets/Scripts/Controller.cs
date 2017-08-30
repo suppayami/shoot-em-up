@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace Yami {
     public class Controller : MonoBehaviour, IDestroyable {
@@ -39,14 +40,26 @@ namespace Yami {
         }
 
         private Vector2 GetDirection() {
+#if MOBILE_INPUT
             Vector2 result = new Vector2(
-                Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")
+                CrossPlatformInputManager.GetAxisRaw("Horizontal"),
+                CrossPlatformInputManager.GetAxisRaw("Vertical")
             );
+#else
+            Vector2 result = new Vector2(
+                Input.GetAxisRaw("Horizontal"),
+                Input.GetAxisRaw("Vertical")
+            );
+#endif
             return result;
         }
 
         private bool IsFirePressed() {
+#if MOBILE_INPUT
+            return CrossPlatformInputManager.GetButton("Jump");
+#else
             return Input.GetButton("Jump");
+#endif
         }
     }
 }
