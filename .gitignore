@@ -35,3 +35,6 @@ sysinfo.txt
 
 # vscode
 .vscode/
+
+# savefile
+save.bin
