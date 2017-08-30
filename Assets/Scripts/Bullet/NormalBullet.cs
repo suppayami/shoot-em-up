@@ -15,7 +15,10 @@ namespace Yami {
         public void Trigger(GameObject collider) {
             if (collider.tag != "Bullet") {
                 Destroy(gameObject);
-                Destroy(collider);
+                IDestroyable destroyable = collider.GetComponent<IDestroyable>();
+                if (destroyable != null) {
+                    destroyable.Destroy();
+                }
             }
         }
 

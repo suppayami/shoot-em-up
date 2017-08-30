@@ -8,7 +8,8 @@ namespace Yami {
 
         public void Destroy() {
             gameObject.SetActive(false);
-            Debug.Log("Game Over");
+            GameManager manager = GameManager.GetGameManager();
+            manager.GameOver();
         }
 
         void Awake() {

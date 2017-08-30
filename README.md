@@ -1,5 +1,10 @@
 # Shoot-em-up
 
+## Features
+1. Mobile Input: Using `Standard Assets/CrossPlatformInput`. Build platform should be switched to a mobile platform (such as Android, iOS) to test with mouse. If it does not work, click `Mobile Input/Disable` then `Mobile Input/Enable` after changing to mobile platform Build.
+2. Game becomes harder when playing: The delay between enemy spawn decrease every second.
+3. Press (and Hold) `Space` to Shoot bullets.
+
 ## Coding Conventions
 1. Line break @ 100 columns
 2. Use Getter/Setter methods instead of public properties
