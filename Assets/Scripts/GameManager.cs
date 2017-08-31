@@ -16,6 +16,8 @@ namespace Yami {
         [SerializeField]
         private GameObject playerPrefab;
         [SerializeField]
+        private GameObject powerupPrefab;
+        [SerializeField]
         private Text scoreText;
         [SerializeField]
         private Text highScoreText;
@@ -26,9 +28,11 @@ namespace Yami {
         [SerializeField]
         private Transform worldContainer;
 
+        private float powerupSpawnCount = 5.0f;
         private STATE state = STATE.Start;
         private readonly string saveFilename = "save.bin";
 
+        // STATE: current menu/state of game, used for game handlers
         enum STATE { Start, InGame, GameOver };
 
 
@@ -132,11 +136,17 @@ namespace Yami {
             }
         }
 
+        /// <summary>
+        /// Add object to World Container for easy handling
+        /// </summary>
+        public void AddObjectToWorld(Transform objTransform) {
+            objTransform.parent = worldContainer;
+        }
+
         void Awake() {
             // Load savefile
             Load();
 
-            enemyFactory.SetWorldContainer(worldContainer);
             startText.gameObject.SetActive(true);
         }
 
@@ -148,6 +158,7 @@ namespace Yami {
         private void SetupGame() {
             ResetObjects();
             SetupPlayer();
+            powerupSpawnCount = 5.0f;
             enemyFactory.SetupSpawn();
             gameState.score = 0; // reset score
             highScoreText.text = string.Format("Highscore: {0}", gameState.highScore);
@@ -192,6 +203,7 @@ namespace Yami {
                 return;
             }
             UpdateCamera();
+            UpdatePowerupSpawn();
             enemyFactory.UpdateSpawn();
         }
 
@@ -201,6 +213,23 @@ namespace Yami {
             currentPos.x = cameraOffset.x;
             currentPos.y = cameraOffset.y;
             mainCamera.position = currentPos;
+        }
+
+        private void UpdatePowerupSpawn() {
+            if (powerupSpawnCount <= 0.0f) {
+                return;
+            }
+            powerupSpawnCount -= Time.deltaTime;
+            if (powerupSpawnCount > 0.0f) {
+                return;
+            }
+            Vector2 position = new Vector2(
+                Random.Range(-GetWorldSize().x / 2, GetWorldSize().x / 2),
+                Random.Range(-GetWorldSize().y / 2 + 12.0f, GetWorldSize().y / 2 - 12.0f)
+            );
+            GameObject spawn = GameObject.Instantiate(powerupPrefab, position, Quaternion.identity);
+            Transform spawnTransform = spawn.transform;
+            AddObjectToWorld(spawnTransform);
         }
 
         private void Save() {

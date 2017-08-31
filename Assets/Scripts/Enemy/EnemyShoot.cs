@@ -5,7 +5,7 @@ namespace Yami {
         private IMovable movement;
         private Transform playerTransform;
         private Transform objectTransform;
-        private Gun gun;
+        private IGun gun;
 
         public void UpdateAI() {
             Vector2 direction = (playerTransform.position - objectTransform.position).normalized;
@@ -17,7 +17,7 @@ namespace Yami {
             // cache
             movement = GetComponent<IMovable>();
             objectTransform = transform;
-            gun = GetComponent<Gun>();
+            gun = GetComponentInChildren<IGun>();
 
             GameManager manager = GameManager.GetGameManager();
             playerTransform = manager.GetPlayerObject().transform;

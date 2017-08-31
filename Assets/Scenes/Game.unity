@@ -616,6 +616,8 @@ MonoBehaviour:
   mainCamera: {fileID: 1124020310}
   playerPrefab: {fileID: 1746182352008386, guid: 5e64a95ccb359442597538e52550f771,
     type: 2}
+  powerupPrefab: {fileID: 1923383034236212, guid: afd0fbafedba2174eb8290bf854e6db3,
+    type: 2}
   scoreText: {fileID: 1151997877}
   highScoreText: {fileID: 1468379780}
   startText: {fileID: 41745854}

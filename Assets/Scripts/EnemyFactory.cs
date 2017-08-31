@@ -14,11 +14,6 @@ namespace Yami {
 
         private float currentSpawnTime;
         private float spawnTimeCount;
-        private Transform worldContainer;
-
-        public void SetWorldContainer(Transform container) {
-            worldContainer = container;
-        }
 
         public void SetupSpawn() {
             currentSpawnTime = baseSpawnTime;
@@ -41,7 +36,7 @@ namespace Yami {
             Vector2 spawnPos = manager.GetRandomSpawnPosition();
 
             GameObject spwn = GameObject.Instantiate(prefab, spawnPos, Quaternion.identity);
-            spwn.transform.parent = worldContainer;
+            manager.AddObjectToWorld(spwn.transform);
         }
     }
 }
