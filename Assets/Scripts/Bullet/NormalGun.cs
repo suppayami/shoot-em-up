@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Yami {
-    public class Gun : MonoBehaviour {
+    public class NormalGun : MonoBehaviour, IGun {
         [SerializeField]
         private float shootCooldown = 0.2f;
         [SerializeField]
@@ -17,17 +17,20 @@ namespace Yami {
                 return;
             }
 
+            GameManager manager = GameManager.GetGameManager();
+
             cooldown += shootCooldown;
-            Vector2 currentPos = objTransform.position;
             Vector2 padding = paddingBullet;
-            padding.x *= Mathf.Sign(objTransform.localScale.x);
+            Vector2 currentPos = objTransform.position;
+            padding.x *= Mathf.Sign(objTransform.parent.localScale.x);
 
             Vector2 position = currentPos + padding;
-            GameObject spawn = Instantiate(bullet, position, Quaternion.identity);
+            GameObject spawn = GameObject.Instantiate(bullet, position, Quaternion.identity);
             Transform spawnTransform = spawn.transform;
+            manager.AddObjectToWorld(spawnTransform);
 
             Vector3 scale = spawnTransform.localScale;
-            scale.x *= Mathf.Sign(objTransform.localScale.x);
+            scale.x *= Mathf.Sign(objTransform.parent.localScale.x); // Gun is child of an object!
             spawnTransform.localScale = scale;
         }
 

@@ -3,19 +3,38 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace Yami {
     public class Controller : MonoBehaviour, IDestroyable {
+        [SerializeField]
+        private GameObject defaultGun;
+
+        private IGun gun;
         private IMovable movement;
-        private Gun gun;
 
         public void Destroy() {
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
             GameManager manager = GameManager.GetGameManager();
             manager.GameOver();
+        }
+
+        public void SwitchGun(GameObject newGun) {
+            if (gun != null) {
+                // hax: Gun is always a MonoBehaviour
+                GameObject gunObj = ((MonoBehaviour)gun).gameObject;
+                Destroy(gunObj);
+            }
+
+            GameObject newGunObj = Instantiate(newGun, transform.position, Quaternion.identity);
+            newGunObj.transform.parent = transform;
+            gun = newGunObj.GetComponent<IGun>();
         }
 
         void Awake() {
             // cache components
             movement = GetComponent<IMovable>();
-            gun = GetComponent<Gun>();
+            gun = GetComponentInChildren<IGun>();
+
+            if (defaultGun != null) {
+                SwitchGun(defaultGun);
+            }
         }
 
         void Update() {

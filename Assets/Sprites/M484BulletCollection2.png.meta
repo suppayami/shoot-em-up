@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: d368f3bb95cda41edaa133307a0d68a5
-timeCreated: 1503938997
+timeCreated: 1504210801
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: M484BulletCollection2_0
     21300002: M484BulletCollection2_1
+    21300004: M484BulletCollection2_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -96,7 +97,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -106,6 +107,19 @@ TextureImporter:
         serializedVersion: 2
         x: 165
         y: 661
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: M484BulletCollection2_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 473
         width: 16
         height: 16
       alignment: 0

@@ -14,11 +14,58 @@ namespace Yami {
         [SerializeField]
         private Transform mainCamera;
         [SerializeField]
+        private GameObject playerPrefab;
+        [SerializeField]
+        private GameObject powerupPrefab;
+        [SerializeField]
         private Text scoreText;
         [SerializeField]
         private Text highScoreText;
+        [SerializeField]
+        private Text startText;
+        [SerializeField]
+        private Text gameOverText;
+        [SerializeField]
+        private Transform worldContainer;
 
+        private float powerupSpawnCount = 5.0f;
+        private STATE state = STATE.Start;
         private readonly string saveFilename = "save.bin";
+
+        // STATE: current menu/state of game, used for game handlers
+        enum STATE { Start, InGame, GameOver };
+
+
+        /// <summary>
+        /// Start the game at the beginning
+        /// </summary>
+        public void StartGame() {
+            SetupGame();
+            startText.gameObject.SetActive(false); // hide text
+        }
+
+        /// <summary>
+        /// Replay the game after game over
+        /// </summary>
+        public void ReplayGame() {
+            SetupGame();
+            gameOverText.gameObject.SetActive(false); // hide text
+        }
+
+        /// <summary>
+        /// Add score to current score. If score > highScore, change highScore to score.
+        /// </summary>
+        public void GameOver() {
+            ResetObjects(); // reset all objects!
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
+                highScoreText.text = string.Format("Highscore: {0}", gameState.highScore);
+                Save();
+            }
+            SetPlayerVelocity(Vector2.zero); // fixed die while moving
+            gameOverText.gameObject.SetActive(true); // show game over text
+            state = STATE.GameOver;
+        }
 
         /// <summary>
         /// Get Player Object. There's only one player on the Scene so meh~
@@ -90,31 +137,73 @@ namespace Yami {
         }
 
         /// <summary>
-        /// Add score to current score. If score > highScore, change highScore to score.
+        /// Add object to World Container for easy handling
         /// </summary>
-        public void GameOver() {
-            if (gameState.score > gameState.highScore) {
-                gameState.highScore = gameState.score;
-                highScoreText.text = string.Format("Highscore: {0}", gameState.highScore);
-                Save();
-            }
-            SetPlayerVelocity(Vector2.zero); // fixed die while moving
+        public void AddObjectToWorld(Transform objTransform) {
+            objTransform.parent = worldContainer;
         }
 
         void Awake() {
             // Load savefile
             Load();
-            // Find Player Object for further uses
-            GameObject playerObject = GameObject.Find("Player");
-            world.SetPlayerObject(playerObject);
-            enemyFactory.SetupSpawn();
 
-            gameState.score = 0; // reset score
-            highScoreText.text = string.Format("Highscore: {0}", gameState.highScore);
+            startText.gameObject.SetActive(true);
         }
 
         void Update() {
+            UpdateMenu();
+            UpdateGame();
+        }
+
+        private void SetupGame() {
+            ResetObjects();
+            SetupPlayer();
+            powerupSpawnCount = 5.0f;
+            enemyFactory.SetupSpawn();
+            gameState.score = 0; // reset score
+            highScoreText.text = string.Format("Highscore: {0}", gameState.highScore);
+            state = STATE.InGame;
+        }
+
+        private void ResetObjects() {
+            // destroy all objects from previous plays
+            int childrenCount = worldContainer.childCount;
+            for (int i = childrenCount - 1; i >= 0; i--) {
+                Destroy(worldContainer.GetChild(i).gameObject);
+            }
+        }
+
+        private void SetupPlayer() {
+            GameObject player = Instantiate(playerPrefab, Vector2.zero, Quaternion.identity);
+            player.transform.parent = worldContainer;
+            world.SetPlayerObject(player);
+            player.SetActive(true);
+        }
+
+        private void UpdateMenu() {
+            if (state == STATE.InGame) {
+                return;
+            }
+
+            if (!Input.anyKeyDown) {
+                return;
+            }
+
+            if (state == STATE.Start) {
+                StartGame();
+            }
+
+            if (state == STATE.GameOver) {
+                ReplayGame();
+            }
+        }
+
+        private void UpdateGame() {
+            if (state != STATE.InGame) {
+                return;
+            }
             UpdateCamera();
+            UpdatePowerupSpawn();
             enemyFactory.UpdateSpawn();
         }
 
@@ -124,6 +213,23 @@ namespace Yami {
             currentPos.x = cameraOffset.x;
             currentPos.y = cameraOffset.y;
             mainCamera.position = currentPos;
+        }
+
+        private void UpdatePowerupSpawn() {
+            if (powerupSpawnCount <= 0.0f) {
+                return;
+            }
+            powerupSpawnCount -= Time.deltaTime;
+            if (powerupSpawnCount > 0.0f) {
+                return;
+            }
+            Vector2 position = new Vector2(
+                Random.Range(-GetWorldSize().x / 2, GetWorldSize().x / 2),
+                Random.Range(-GetWorldSize().y / 2 + 12.0f, GetWorldSize().y / 2 - 12.0f)
+            );
+            GameObject spawn = GameObject.Instantiate(powerupPrefab, position, Quaternion.identity);
+            Transform spawnTransform = spawn.transform;
+            AddObjectToWorld(spawnTransform);
         }
 
         private void Save() {

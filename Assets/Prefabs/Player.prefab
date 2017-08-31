@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114373957544097230}
   - component: {fileID: 50058325088743862}
   - component: {fileID: 61588842210402994}
-  - component: {fileID: 114089746856607298}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -54,7 +53,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1746182352008386}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -120,19 +119,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32, y: 32}
   m_EdgeRadius: 0
---- !u!114 &114089746856607298
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1746182352008386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc39c95252c503d48b23a53e99cb80a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootCooldown: 0.35
-  bullet: {fileID: 1522134373641406, guid: ff1e90f0bd4695249a33d2053361570b, type: 2}
 --- !u!114 &114162482409951694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccf7864562364f71888e67baeae02e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultGun: {fileID: 1639344823459162, guid: ca33ed0daf1ce234490776b5f21029b4, type: 2}
 --- !u!212 &212386090046369796
 SpriteRenderer:
   m_ObjectHideFlags: 1
