@@ -7,7 +7,7 @@ namespace Yami {
         private Gun gun;
 
         public void Destroy() {
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
             GameManager manager = GameManager.GetGameManager();
             manager.GameOver();
         }

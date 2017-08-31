@@ -25,10 +25,12 @@ namespace Yami {
             Vector2 position = currentPos + padding;
             GameObject spawn = Instantiate(bullet, position, Quaternion.identity);
             Transform spawnTransform = spawn.transform;
+            spawnTransform.parent = objTransform.parent;
 
             Vector3 scale = spawnTransform.localScale;
             scale.x *= Mathf.Sign(objTransform.localScale.x);
             spawnTransform.localScale = scale;
+
         }
 
         void Awake() {
