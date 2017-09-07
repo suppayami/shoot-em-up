@@ -32,13 +32,8 @@ namespace Yami {
         void Awake() {
             enemy = GetComponent<IEnemy>();
             objRenderer = GetComponentInChildren<SpriteRenderer>();
-            isActivated = false;
-            Color color = objRenderer.color;
-            color.a = 0.5f;
-            color.r = 0.0f;
-            color.g = 0.0f;
-            color.b = 0.0f;
-            objRenderer.color = color;
+
+            AwakeFadeIn();
         }
 
         void Update() {
@@ -57,6 +52,16 @@ namespace Yami {
             if (triggerable != null) {
                 triggerable.Trigger(gameObject);
             }
+        }
+
+        private void AwakeFadeIn() {
+            isActivated = false;
+            Color color = objRenderer.color;
+            color.a = 0.5f;
+            color.r = 0.0f;
+            color.g = 0.0f;
+            color.b = 0.0f;
+            objRenderer.color = color;
         }
 
         private void UpdateSpawn() {

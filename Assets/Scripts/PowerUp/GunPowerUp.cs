@@ -4,11 +4,16 @@ namespace Yami {
     public class GunPowerUp : MonoBehaviour, ITriggerable {
         [SerializeField]
         private GameObject newGun;
+        [SerializeField]
+        private int score = 50;
 
         private Rigidbody2D objRigidbody;
 
         public void Trigger(GameObject collider) {
             if (collider.tag == "Player") {
+                GameManager manager = GameManager.GetGameManager();
+                manager.AddScore(score);
+
                 Controller playerController = collider.GetComponent<Controller>();
                 Destroy(gameObject);
                 playerController.SwitchGun(newGun);

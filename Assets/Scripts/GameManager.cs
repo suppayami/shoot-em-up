@@ -12,6 +12,8 @@ namespace Yami {
         [SerializeField]
         private EnemyFactory enemyFactory;
         [SerializeField]
+        private PowerUpFactory powerUpFactory;
+        [SerializeField]
         private Transform mainCamera;
         [SerializeField]
         private GameObject playerPrefab;
@@ -28,7 +30,6 @@ namespace Yami {
         [SerializeField]
         private Transform worldContainer;
 
-        private float powerupSpawnCount = 5.0f;
         private STATE state = STATE.Start;
         private readonly string saveFilename = "save.bin";
 
@@ -158,8 +159,8 @@ namespace Yami {
         private void SetupGame() {
             ResetObjects();
             SetupPlayer();
-            powerupSpawnCount = 5.0f;
             enemyFactory.SetupSpawn();
+            powerUpFactory.SetupSpawn();
             gameState.score = 0; // reset score
             highScoreText.text = string.Format("Highscore: {0}", gameState.highScore);
             state = STATE.InGame;
@@ -203,8 +204,8 @@ namespace Yami {
                 return;
             }
             UpdateCamera();
-            UpdatePowerupSpawn();
             enemyFactory.UpdateSpawn();
+            powerUpFactory.UpdateSpawn();
         }
 
         private void UpdateCamera() {
@@ -213,23 +214,6 @@ namespace Yami {
             currentPos.x = cameraOffset.x;
             currentPos.y = cameraOffset.y;
             mainCamera.position = currentPos;
-        }
-
-        private void UpdatePowerupSpawn() {
-            if (powerupSpawnCount <= 0.0f) {
-                return;
-            }
-            powerupSpawnCount -= Time.deltaTime;
-            if (powerupSpawnCount > 0.0f) {
-                return;
-            }
-            Vector2 position = new Vector2(
-                Random.Range(-GetWorldSize().x / 2, GetWorldSize().x / 2),
-                Random.Range(-GetWorldSize().y / 2 + 12.0f, GetWorldSize().y / 2 - 12.0f)
-            );
-            GameObject spawn = GameObject.Instantiate(powerupPrefab, position, Quaternion.identity);
-            Transform spawnTransform = spawn.transform;
-            AddObjectToWorld(spawnTransform);
         }
 
         private void Save() {
