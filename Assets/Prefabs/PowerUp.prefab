@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4696519707799828}
   - component: {fileID: 114829245971913712}
   - component: {fileID: 212362910822873622}
+  - component: {fileID: 95691470116286970}
   m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
@@ -118,6 +119,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32, y: 32}
   m_EdgeRadius: 0
+--- !u!95 &95691470116286970
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1125051369963618}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 754f1bbe7a14541ffbe2271d88b2925e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114041123380842194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newGun: {fileID: 1454158583629638, guid: 5acd1e7d6630bf245b16bb02f7b7259f, type: 2}
+  score: 50
 --- !u!114 &114829245971913712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,3 +200,5 @@ SpriteRenderer:
   m_Size: {x: 16, y: 16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
